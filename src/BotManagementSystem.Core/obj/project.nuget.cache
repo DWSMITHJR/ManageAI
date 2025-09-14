@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "m6siSGpn3Ig=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\donal\\source\\repos\\ManagementAI\\src\\BotManagementSystem.Core\\BotManagementSystem.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\donal\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1101",
+      "level": "Error",
+      "message": "Unable to find package Microsoft.Cloud.MCP.SDK. No packages exist with this id in source(s): Microsoft Visual Studio Offline Packages, nuget.org",
+      "projectPath": "C:\\Users\\donal\\source\\repos\\ManagementAI\\src\\BotManagementSystem.Core\\BotManagementSystem.Core.csproj",
+      "filePath": "C:\\Users\\donal\\source\\repos\\ManagementAI\\src\\BotManagementSystem.Core\\BotManagementSystem.Core.csproj",
+      "libraryId": "Microsoft.Cloud.MCP.SDK",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}
