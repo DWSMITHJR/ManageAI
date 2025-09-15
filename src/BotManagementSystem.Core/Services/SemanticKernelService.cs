@@ -1,4 +1,6 @@
 using BotManagementSystem.Core.Validation;
+using BotManagementSystem.Core.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -28,43 +30,28 @@ public class SemanticKernelService : ISemanticKernelService
     private readonly IChatCompletionService _chatCompletionService;
     private readonly AsyncRetryPolicy _retryPolicy;
 
+    private readonly OpenAIPromptExecutionSettings _promptExecutionSettings;
+
     public SemanticKernelService(
-        string apiKey,
-        string modelId = "gpt-35-turbo",
-        string? endpoint = null,
-        ILogger<SemanticKernelService>? logger = null)
+        IOptions<OpenAiSettings> openAiSettings,
+        ILogger<SemanticKernelService> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        var settings = openAiSettings.Value;
+        _promptExecutionSettings = settings.PromptExecutionSettings;
         
         try
         {
-            if (string.IsNullOrWhiteSpace(apiKey))
+            if (string.IsNullOrWhiteSpace(settings.ApiKey))
             {
-                throw new ArgumentException("API key cannot be null or whitespace.", nameof(apiKey));
+                throw new ArgumentException("API key cannot be null or whitespace.", nameof(settings.ApiKey));
             }
 
-            if (endpoint != null && !Uri.IsWellFormedUriString(endpoint, UriKind.Absolute))
-            {
-                throw new ArgumentException("Invalid endpoint URL format.", nameof(endpoint));
-            }
-            
             var builder = Kernel.CreateBuilder();
             
-            if (!string.IsNullOrEmpty(endpoint))
-            {
-                #pragma warning disable SKEXP0010
-                builder.AddOpenAIChatCompletion(
-                    modelId: modelId,
-                    apiKey: apiKey,
-                    endpoint: new Uri(endpoint));
-                #pragma warning restore SKEXP0010
-            }
-            else
-            {
-                builder.AddOpenAIChatCompletion(
-                    modelId: modelId,
-                    apiKey: apiKey);
-            }
+            builder.AddOpenAIChatCompletion(
+                modelId: settings.ModelId,
+                apiKey: settings.ApiKey);
             
             _kernel = builder.Build();
             _chatCompletionService = _kernel.GetRequiredService<IChatCompletionService>();
@@ -84,7 +71,7 @@ public class SemanticKernelService : ISemanticKernelService
                             retryCount, delay.TotalMilliseconds, exception.Message);
                     });
 
-            _logger.LogInformation("SemanticKernelService initialized with model: {ModelId}", modelId);
+            _logger.LogInformation("SemanticKernelService initialized with model: {ModelId}", settings.ModelId);
         }
         catch (Exception ex) when (ex is not ArgumentException)
         {
@@ -108,12 +95,7 @@ public class SemanticKernelService : ISemanticKernelService
                 {
                     var result = await _chatCompletionService.GetChatMessageContentsAsync(
                         prompt,
-                        new OpenAIPromptExecutionSettings 
-                        { 
-                            MaxTokens = 2000,
-                            Temperature = 0.7,
-                            TopP = 0.8
-                        },
+                        _promptExecutionSettings,
                         _kernel);
 
                     var response = result?.FirstOrDefault()?.Content ?? string.Empty;
@@ -178,12 +160,7 @@ public class SemanticKernelService : ISemanticKernelService
                 {
                     var result = await _chatCompletionService.GetChatMessageContentsAsync(
                         chatHistory,
-                        new OpenAIPromptExecutionSettings 
-                        { 
-                            MaxTokens = 2000,
-                            Temperature = 0.7,
-                            TopP = 0.8
-                        },
+                        _promptExecutionSettings,
                         _kernel);
 
                     var response = result?.FirstOrDefault()?.Content ?? string.Empty;

@@ -1,4 +1,6 @@
 using BotManagementSystem.Core.Entities;
+using BotManagementSystem.Core.Configuration;
+using BotManagementSystem.Core.Services;
 using BotManagementSystem.Core.Interfaces;
 using BotManagementSystem.Infrastructure.Data;
 using BotManagementSystem.Infrastructure.Repositories;
@@ -27,8 +29,10 @@ var builder = Host.CreateDefaultBuilder(args)
             options.UseInMemoryDatabase("BotManagementDb"));
             
         // Add services
+        services.Configure<OpenAiSettings>(hostContext.Configuration.GetSection("OpenAI"));
         services.AddScoped<IBotRepository, BotRepository>();
         services.AddScoped<IBotService, BotService>();
+        services.AddScoped<ISemanticKernelService, SemanticKernelService>();
         services.AddSingleton<IMemoryCache, MemoryCache>();
         
         // Add the CLI service
