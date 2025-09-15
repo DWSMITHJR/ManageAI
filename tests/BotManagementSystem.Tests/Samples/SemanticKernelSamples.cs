@@ -1,9 +1,11 @@
 using BotManagementSystem.Core.Extensions;
 using BotManagementSystem.Core.Services;
+using BotManagementSystem.Core.Configuration;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Moq;
@@ -47,8 +49,17 @@ public class SemanticKernelSamples
         var services = new ServiceCollection()
             .AddLogging(builder => builder.AddXUnit(output).SetMinimumLevel(LogLevel.Debug));
 
-        // Register SemanticKernelService with the API key from configuration
-        services.AddSemanticKernelServices(_apiKey, TestModelId);
+        // Configure OpenAiSettings
+        var openAiSettings = new OpenAiSettings
+        {
+            ApiKey = _apiKey,
+            ModelId = TestModelId
+        };
+        
+        services.AddSingleton(Options.Create(openAiSettings));
+        
+        // Register SemanticKernelService
+        services.AddSemanticKernelServices();
         
         _serviceProvider = services.BuildServiceProvider();
     }

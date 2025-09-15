@@ -2,7 +2,8 @@ using Xunit;
 using Microsoft.Extensions.Logging;
 using Moq;
 using BotManagementSystem.Core.Services;
-using Microsoft.SemanticKernel;
+using BotManagementSystem.Core.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BotManagementSystem.Tests;
 
@@ -26,13 +27,15 @@ public class SimpleTest
     {
         // Arrange
         var loggerMock = new Mock<ILogger<SemanticKernelService>>();
+        var openAiSettings = new OpenAiSettings
+        {
+            ApiKey = "test-api-key",
+            ModelId = "test-model"
+        };
+        var options = Options.Create(openAiSettings);
         
         // Act
-        var service = new SemanticKernelService(
-            "test-api-key",
-            "test-model",
-            null,
-            loggerMock.Object);
+        var service = new SemanticKernelService(options, loggerMock.Object);
         
         // Assert
         Assert.NotNull(service);

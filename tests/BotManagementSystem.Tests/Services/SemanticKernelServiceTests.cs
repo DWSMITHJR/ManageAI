@@ -1,9 +1,11 @@
 using BotManagementSystem.Core.Services;
 using BotManagementSystem.Core.Validation;
+using BotManagementSystem.Core.Configuration;
 using BotManagementSystem.Tests.Base;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
@@ -111,11 +113,18 @@ namespace BotManagementSystem.Tests.Services
         {
             LogTestStep("Creating SemanticKernelService instance");
             
-            var service = new SemanticKernelService(
-                apiKey: TestApiKey,
-                modelId: TestModelId,
-                endpoint: endpoint,
-                logger: _mockLogger.Object);
+            var openAiSettings = new OpenAiSettings
+            {
+                ApiKey = TestApiKey,
+                ModelId = TestModelId,
+                PromptExecutionSettings = new()
+                {
+                    // Configure any necessary prompt execution settings here
+                }
+            };
+            var options = Options.Create(openAiSettings);
+            
+            var service = new SemanticKernelService(options, _mockLogger.Object);
             
             if (setupMocks)
             {
@@ -149,16 +158,19 @@ namespace BotManagementSystem.Tests.Services
         [Trait("Category", "Initialization")]
         public void Constructor_WithValidParameters_InitializesSuccessfully()
         {
-            // Arrange & Act
-            var service = new SemanticKernelService(
-                apiKey: TestApiKey, 
-                modelId: TestModelId,
-                endpoint: null,
-                logger: _mockLogger.Object);
+            // Arrange
+            var openAiSettings = new OpenAiSettings
+            {
+                ApiKey = TestApiKey,
+                ModelId = TestModelId
+            };
+            var options = Options.Create(openAiSettings);
+            
+            // Act
+            var service = new SemanticKernelService(options, _mockLogger.Object);
             
             // Assert
             service.Should().NotBeNull();
-            
         }
         
         [Theory]
@@ -171,27 +183,39 @@ namespace BotManagementSystem.Tests.Services
         [Trait("Category", "Validation")]
         public void Constructor_WithInvalidParameters_ThrowsArgumentException(string apiKey, string modelId)
         {
+            // Arrange
+            var openAiSettings = new OpenAiSettings
+            {
+                ApiKey = apiKey,
+                ModelId = modelId
+            };
+            var options = Options.Create(openAiSettings);
+            
             // Act
-            Action act = () => new SemanticKernelService(apiKey, modelId, logger: _mockLogger.Object);
+            Action act = () => new SemanticKernelService(options, _mockLogger.Object);
             
             // Assert
             act.Should().Throw<ArgumentException>();
         }
         
         [Fact]
-        [Trait("Category", "Initialization")]
-        public void Constructor_WithInvalidEndpoint_ThrowsArgumentException()
+        [Trait("Category", "Validation")]
+        public void Constructor_WithEmptyApiKey_ThrowsArgumentException()
         {
             // Arrange
-            var invalidEndpoint = "not-a-valid-uri";
+            var openAiSettings = new OpenAiSettings
+            {
+                ApiKey = string.Empty,
+                ModelId = TestModelId
+            };
+            var options = Options.Create(openAiSettings);
             
             // Act
-            Action act = () => new SemanticKernelService(TestApiKey, TestModelId, invalidEndpoint, logger: _mockLogger.Object);
+            Action act = () => new SemanticKernelService(options, _mockLogger.Object);
             
             // Assert
             act.Should().Throw<ArgumentException>()
-                .WithMessage("Invalid endpoint URL format.*")
-                .WithParameterName("endpoint");
+                .WithMessage("*API key*");
         }
         
         #endregion
