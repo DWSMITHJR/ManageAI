@@ -2,10 +2,50 @@
 
 // Mock data - In a real app, this would come from an API
 let bots = [
-    { id: 1, name: 'Support Bot', type: 'Chat', description: 'Handles customer support queries', isActive: true, lastActive: new Date('2023-09-14T10:30:00') },
-    { id: 2, name: 'Data Scraper', type: 'Automation', description: 'Scrapes data from various sources', isActive: false, lastActive: new Date('2023-09-13T15:45:00') },
-    { id: 3, name: 'Analytics Bot', type: 'Analytics', description: 'Processes and analyzes data', isActive: true, lastActive: new Date('2023-09-15T09:15:00') },
-    { id: 4, name: 'Monitoring Bot', type: 'Monitoring', description: 'Monitors system health', isActive: true, lastActive: new Date('2023-09-15T08:20:00') },
+    { 
+        id: 1, 
+        name: 'Support Bot', 
+        type: 'Chat', 
+        description: 'Handles customer support queries', 
+        isActive: true, 
+        lastActive: new Date('2023-09-14T10:30:00'),
+        performance: '98%',
+        timeRunning: '2d 4h 15m',
+        startTime: new Date(Date.now() - (2 * 24 * 60 * 60 * 1000) - (4 * 60 * 60 * 1000) - (15 * 60 * 1000))
+    },
+    { 
+        id: 2, 
+        name: 'Data Scraper', 
+        type: 'Automation', 
+        description: 'Scrapes data from various sources', 
+        isActive: false, 
+        lastActive: new Date('2023-09-13T15:45:00'),
+        performance: '87%',
+        timeRunning: '1d 7h 30m',
+        startTime: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000) - (7 * 60 * 60 * 1000) - (30 * 60 * 1000))
+    },
+    { 
+        id: 3, 
+        name: 'Analytics Bot', 
+        type: 'Analytics', 
+        description: 'Processes and analyzes data', 
+        isActive: true, 
+        lastActive: new Date('2023-09-15T09:15:00'),
+        performance: '92%',
+        timeRunning: '3d 12h 45m',
+        startTime: new Date(Date.now() - (3 * 24 * 60 * 60 * 1000) - (12 * 60 * 60 * 1000) - (45 * 60 * 1000))
+    },
+    { 
+        id: 4, 
+        name: 'Monitoring Bot', 
+        type: 'Monitoring', 
+        description: 'Monitors system health', 
+        isActive: true, 
+        lastActive: new Date('2023-09-15T08:20:00'),
+        performance: '99.9%',
+        timeRunning: '5d 2h 10m',
+        startTime: new Date(Date.now() - (5 * 24 * 60 * 60 * 1000) - (2 * 60 * 60 * 1000) - (10 * 60 * 1000))
+    },
 ];
 
 // DOM Elements
@@ -137,19 +177,27 @@ function updateBotsTable() {
             : 'Never';
             
         row.innerHTML = `
-            <td>${bot.name}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-secondary me-2">#${bot.id}</span>
+                    <span>${bot.name}</span>
+                </div>
+            </td>
             <td>${bot.type}</td>
             <td><span class="${statusClass}">${statusText}</span></td>
+            <td>${bot.performance || 'N/A'}</td>
+            <td>${bot.timeRunning || 'N/A'}</td>
             <td>${lastActive}</td>
             <td>
-                <button class="btn btn-sm btn-outline-primary me-1" onclick="editBot(${bot.id})">
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="editBot(${bot.id})" title="Edit Bot">
                     <i class="bi bi-pencil"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger me-1" onclick="confirmDeleteBot(${bot.id})">
+                <button class="btn btn-sm btn-outline-danger me-1" onclick="confirmDeleteBot(${bot.id})" title="Delete Bot">
                     <i class="bi bi-trash"></i>
                 </button>
                 <button class="btn btn-sm ${bot.isActive ? 'btn-outline-warning' : 'btn-outline-success'}" 
-                        onclick="toggleBotStatus(${bot.id})">
+                        onclick="toggleBotStatus(${bot.id})"
+                        title="${bot.isActive ? 'Pause Bot' : 'Start Bot'}">
                     <i class="bi ${bot.isActive ? 'bi-pause' : 'bi-play'}"></i>
                 </button>
             </td>
@@ -184,13 +232,20 @@ function updateRecentActivity() {
             : 'Never';
             
         row.innerHTML = `
-            <td>${bot.name}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-secondary me-2">#${bot.id}</span>
+                    <span>${bot.name}</span>
+                </div>
+            </td>
             <td>${bot.type}</td>
             <td><span class="${statusClass}">${statusText}</span></td>
+            <td>${bot.performance || 'N/A'}</td>
+            <td>${bot.timeRunning || 'N/A'}</td>
             <td>${lastActive}</td>
             <td>
-                <button class="btn btn-sm btn-outline-primary" onclick="viewBotDetails(${bot.id})">
-                    View Details
+                <button class="btn btn-sm btn-outline-primary" onclick="viewBotDetails(${bot.id})" title="View Details">
+                    <i class="bi bi-eye"></i> View
                 </button>
             </td>
         `;
