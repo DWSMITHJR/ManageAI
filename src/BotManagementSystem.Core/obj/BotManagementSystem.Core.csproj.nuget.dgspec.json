@@ -52,11 +52,27 @@
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.8.0, )"
+              "version": "[11.9.0, )"
             },
-            "Microsoft.Cloud.MCP.SDK": {
+            "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[1.0.0, )"
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.SemanticKernel": {
+              "target": "Package",
+              "version": "[1.65.0, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[8.3.1, )"
             }
           },
           "imports": [

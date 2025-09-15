@@ -1,0 +1,26 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>12.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Common package versions -->
+    <MicrosoftExtensionsVersion>8.0.0</MicrosoftExtensionsVersion>
+    <XunitVersion>2.4.2</XunitVersion>
+    <MoqVersion>4.20.69</MoqVersion>
+    <MicrosoftNETTestSdkVersion>17.6.0</MicrosoftNETTestSdkVersion>
+    <CoverletCollectorVersion>6.0.0</CoverletCollectorVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Common package references -->
+    <PackageReference Update="Microsoft.Extensions.*" Version="$(MicrosoftExtensionsVersion)" />
+    <PackageReference Update="xunit" Version="$(XunitVersion)" />
+    <PackageReference Update="Moq" Version="$(MoqVersion)" />
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkVersion)" />
+    <PackageReference Update="coverlet.collector" Version="$(CoverletCollectorVersion)" />
+  </ItemGroup>
+</Project>
