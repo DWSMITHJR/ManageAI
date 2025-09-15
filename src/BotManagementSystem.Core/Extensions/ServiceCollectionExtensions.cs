@@ -1,3 +1,4 @@
+using BotManagementSystem.Core.Configuration;
 using BotManagementSystem.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

@@ -19,6 +19,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManagementSystem.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotManagementSystem.Console", "src\BotManagementSystem.Console\BotManagementSystem.Console.csproj", "{278CF5A5-610A-EBFC-2D58-ECFB1CB08360}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "web", "web\", "{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_62462"
+		Debug.AspNetCompiler.PhysicalPath = "web\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62462\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_62462"
+		Release.AspNetCompiler.PhysicalPath = "web\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_62462\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "62462"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +121,18 @@ Global
 		{278CF5A5-610A-EBFC-2D58-ECFB1CB08360}.Release|x64.Build.0 = Release|Any CPU
 		{278CF5A5-610A-EBFC-2D58-ECFB1CB08360}.Release|x86.ActiveCfg = Release|Any CPU
 		{278CF5A5-610A-EBFC-2D58-ECFB1CB08360}.Release|x86.Build.0 = Release|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|x64.Build.0 = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Debug|x86.Build.0 = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|x64.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|x64.Build.0 = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|x86.ActiveCfg = Debug|Any CPU
+		{A9807B56-ABAE-FC54-E455-F6F1CAEFB532}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,5 +144,8 @@ Global
 		{8E28B29B-CB5D-4456-B0E3-154CA49A49AF} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{097F979A-5555-4EBF-B6AF-955D9737B995} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{278CF5A5-610A-EBFC-2D58-ECFB1CB08360} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E9CD3F7-DA09-4D4D-97F9-D0C6DC10D2DB}
 	EndGlobalSection
 EndGlobal
