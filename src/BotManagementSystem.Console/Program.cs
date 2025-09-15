@@ -1,6 +1,7 @@
 using BotManagementSystem.Core.Entities;
 using BotManagementSystem.Core.Interfaces;
 using BotManagementSystem.Infrastructure.Data;
+using BotManagementSystem.Infrastructure.Repositories;
 using BotManagementSystem.Services.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Spectre.Console;
+using System.Text.Json;
 
 // Create host builder
 var builder = Host.CreateDefaultBuilder(args)
@@ -123,7 +125,7 @@ public class BotManagementCli : IHostedService
         while (true)
         {
             AnsiConsole.Clear();
-            AnsiConsole.Write(new Rule("Bot Management").LeftAligned().RuleStyle("blue"));
+            AnsiConsole.Write(new Rule("Bot Management") { Justification = Justify.Left }.RuleStyle("blue"));
             
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
@@ -240,7 +242,7 @@ public class BotManagementCli : IHostedService
 [bold]Created:[/] {bot.CreatedAt:g}
 [bold]Last Active:[/] {bot.LastActive?.ToString("g") ?? "Never"}
 [bold]Description:[/] {bot.Description ?? "N/A"}
-[bold]Configuration:[/] {bot.Configuration ?? "{}"}";
+[bold]Configuration:[/] {(bot.Configuration != null && bot.Configuration.Any() ? JsonSerializer.Serialize(bot.Configuration) : "{}")}";
     }
 
     private async Task CreateNewBotAsync()
@@ -384,7 +386,7 @@ public class BotManagementCli : IHostedService
         if (selected == "Back")
             return;
 
-        var bot = bots[botChoices.IndexOf(selected)];
+        var bot = bots.ToList()[botChoices.IndexOf(selected)];
         var newStatus = !bot.IsActive;
         
         try
@@ -412,7 +414,7 @@ public class BotManagementCli : IHostedService
     {
         var bots = await _botService.GetAllBotsAsync();
         var activeBots = bots.Count(b => b.IsActive);
-        var inactiveBots = bots.Count - activeBots;
+        var inactiveBots = bots.Count() - activeBots;
         var botTypes = bots.GroupBy(b => b.Type)
             .Select(g => new { Type = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count);
@@ -421,7 +423,7 @@ public class BotManagementCli : IHostedService
             .Width(60)
             .Label("[green]Bot Statistics[/]")
             .CenterLabel()
-            .AddItem("Total Bots", bots.Count, Color.Blue)
+            .AddItem("Total Bots", bots.Count(), Color.Blue)
             .AddItem("Active Bots", activeBots, Color.Green)
             .AddItem("Inactive Bots", inactiveBots, Color.Red);
 

@@ -1,0 +1,666 @@
+<assemblies timestamp="09/15/2025 21:18:34">
+  <assembly name="C:\Users\donal\source\repos\ManagementAI\tests\BotManagementSystem.Tests\bin\Debug\net8.0\BotManagementSystem.Tests.dll" run-date="2025-09-15" run-time="21:18:34" total="57" passed="57" failed="0" skipped="0" time="77.600" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.BasicTest" time="0.023">
+      <test name="BotManagementSystem.Tests.BasicTest.BasicTest_Passes" type="BotManagementSystem.Tests.BasicTest" method="BasicTest_Passes" time="0.0227650" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.Repositories.BotRepositoryTests" time="0.934">
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.DeleteAsync_RemovesBotFromDatabase" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="DeleteAsync_RemovesBotFromDatabase" time="0.8142498" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.GetActiveBotsAsync_ReturnsOnlyActiveBots" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="GetActiveBotsAsync_ReturnsOnlyActiveBots" time="0.0314537" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.AddAsync_AddsBotToDatabase" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="AddAsync_AddsBotToDatabase" time="0.0431841" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.GetByIdAsync_ReturnsBot_WhenBotExists" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="GetByIdAsync_ReturnsBot_WhenBotExists" time="0.0047264" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.GetAllAsync_ReturnsAllBots" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="GetAllAsync_ReturnsAllBots" time="0.0092604" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.GetBotWithIntegrationsAsync_ReturnsBotWithIntegrations" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="GetBotWithIntegrationsAsync_ReturnsBotWithIntegrations" time="0.0223151" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.GetByIdAsync_ReturnsNull_WhenBotDoesNotExist" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="GetByIdAsync_ReturnsNull_WhenBotDoesNotExist" time="0.0031805" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Repositories.BotRepositoryTests.UpdateAsync_UpdatesBotInDatabase" type="BotManagementSystem.Tests.Repositories.BotRepositoryTests" method="UpdateAsync_UpdatesBotInDatabase" time="0.0058302" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.Samples.SemanticKernelSamples" time="0.915">
+      <test name="BotManagementSystem.Tests.Samples.SemanticKernelSamples.RunBasicSample" type="BotManagementSystem.Tests.Samples.SemanticKernelSamples" method="RunBasicSample" time="0.7573311" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      SemanticKernelService initialized with model: gpt-3.5-turbo
+=== Basic Completion ===
+[2025-09-15 21:18:36Z] dbug: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      Sending prompt to AI service. Length: 29 characters
+[2025-09-15 21:18:36Z] fail: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      Error getting chat completion for prompt. Length: 29 characters
+Microsoft.SemanticKernel.HttpOperationException: HTTP 429 (insufficient_quota: insufficient_quota)
+
+You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+ ---&gt; System.ClientModel.ClientResultException: HTTP 429 (insufficient_quota: insufficient_quota)
+
+You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+   at OpenAI.ClientPipelineExtensions.ProcessMessageAsync(ClientPipeline pipeline, PipelineMessage message, RequestOptions options)
+   at OpenAI.Chat.ChatClient.CompleteChatAsync(BinaryContent content, RequestOptions options)
+   at OpenAI.Chat.ChatClient.CompleteChatAsync(IEnumerable`1 messages, ChatCompletionOptions options, CancellationToken cancellationToken)
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.RunRequestAsync[T](Func`1 request)
+   --- End of inner exception stack trace ---
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.RunRequestAsync[T](Func`1 request)
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.GetChatMessageContentsAsync(String targetModel, ChatHistory chatHistory, PromptExecutionSettings executionSettings, Kernel kernel, CancellationToken cancellationToken)
+   at BotManagementSystem.Core.Services.SemanticKernelService.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GetChatCompletionAsync&gt;b__0&gt;d.MoveNext() in C:\Users\donal\source\repos\ManagementAI\src\BotManagementSystem.Core\Services\SemanticKernelService.cs:line 109
+--- End of stack trace from previous location ---
+   at Polly.Retry.AsyncRetryEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, ExceptionPredicates shouldRetryExceptionPredicates, ResultPredicates`1 shouldRetryResultPredicates, Func`5 onRetryAsync, Int32 permittedRetryCount, IEnumerable`1 sleepDurationsEnumerable, Func`4 sleepDurationProvider, Boolean continueOnCapturedContext)
+   at Polly.AsyncPolicy.ExecuteAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
+   at BotManagementSystem.Core.Services.SemanticKernelService.GetChatCompletionAsync(String prompt) in C:\Users\donal\source\repos\ManagementAI\src\BotManagementSystem.Core\Services\SemanticKernelService.cs:line 105
+Sample execution failed: An error occurred while processing your request. Please try again later.
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Samples.SemanticKernelSamples.RunAdvancedSample" type="BotManagementSystem.Tests.Samples.SemanticKernelSamples" method="RunAdvancedSample" time="0.1576802" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      SemanticKernelService initialized with model: gpt-3.5-turbo
+=== Business Analysis Sample ===
+User: Analyze the following business scenario and suggest potential AI solutions:
+
+Scenario: A retail company wants to reduce customer service costs while 
+maintaining high customer satisfaction. They receive thousands of customer 
+inquiries daily about order status, returns, and product information.
+
+[2025-09-15 21:18:36Z] dbug: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      Sending chat history to AI service. Message count: 2
+[2025-09-15 21:18:36Z] fail: BotManagementSystem.Core.Services.SemanticKernelService[0]
+      Error getting chat completion for chat history. Message count: 2
+Microsoft.SemanticKernel.HttpOperationException: HTTP 429 (insufficient_quota: insufficient_quota)
+
+You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+ ---&gt; System.ClientModel.ClientResultException: HTTP 429 (insufficient_quota: insufficient_quota)
+
+You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+   at OpenAI.ClientPipelineExtensions.ProcessMessageAsync(ClientPipeline pipeline, PipelineMessage message, RequestOptions options)
+   at OpenAI.Chat.ChatClient.CompleteChatAsync(BinaryContent content, RequestOptions options)
+   at OpenAI.Chat.ChatClient.CompleteChatAsync(IEnumerable`1 messages, ChatCompletionOptions options, CancellationToken cancellationToken)
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.RunRequestAsync[T](Func`1 request)
+   --- End of inner exception stack trace ---
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.RunRequestAsync[T](Func`1 request)
+   at Microsoft.SemanticKernel.Connectors.OpenAI.ClientCore.GetChatMessageContentsAsync(String targetModel, ChatHistory chatHistory, PromptExecutionSettings executionSettings, Kernel kernel, CancellationToken cancellationToken)
+   at BotManagementSystem.Core.Services.SemanticKernelService.&lt;&gt;c__DisplayClass7_0.&lt;&lt;GetChatCompletionAsync&gt;b__0&gt;d.MoveNext() in C:\Users\donal\source\repos\ManagementAI\src\BotManagementSystem.Core\Services\SemanticKernelService.cs:line 179
+--- End of stack trace from previous location ---
+   at Polly.Retry.AsyncRetryEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, ExceptionPredicates shouldRetryExceptionPredicates, ResultPredicates`1 shouldRetryResultPredicates, Func`5 onRetryAsync, Int32 permittedRetryCount, IEnumerable`1 sleepDurationsEnumerable, Func`4 sleepDurationProvider, Boolean continueOnCapturedContext)
+   at Polly.AsyncPolicy.ExecuteAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
+   at BotManagementSystem.Core.Services.SemanticKernelService.GetChatCompletionAsync(ChatHistory chatHistory) in C:\Users\donal\source\repos\ManagementAI\src\BotManagementSystem.Core\Services\SemanticKernelService.cs:line 175
+Sample execution failed: An error occurred while processing your request. Please try again later.
+
+</output>
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.Samples.SemanticKernelTest" time="0.024">
+      <test name="BotManagementSystem.Tests.Samples.SemanticKernelTest.TestDependencyInjection" type="BotManagementSystem.Tests.Samples.SemanticKernelTest" method="TestDependencyInjection" time="0.0242494" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Samples.SemanticKernelTest[0]
+      Test message from SemanticKernelTest
+
+</output>
+        <traits />
+      </test>
+    </collection>
+    <collection total="27" passed="27" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.Services.SemanticKernelServiceTests" time="76.349">
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithNullChatHistory_ThrowsArgumentNullException" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithNullChatHistory_ThrowsArgumentNullException" time="0.1384923" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;···)" time="0.0017035" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;   &quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;   &quot;)" time="0.0005599" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: &quot;&quot;)" time="0.0003423" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: null)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithInvalidPrompt_ThrowsArgumentException(prompt: null)" time="0.0002923" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: ServiceUnavailable, _: &quot;The AI service is currently unavailable&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: ServiceUnavailable, _: &quot;The AI service is currently unavailable&quot;)" time="14.0469878" result="Pass">
+        <output>[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:36Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: Forbidden, _: &quot;Authentication failed&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: Forbidden, _: &quot;Authentication failed&quot;)" time="0.0023222" result="Pass">
+        <output>[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: Unauthorized, _: &quot;Authentication failed&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: Unauthorized, _: &quot;Authentication failed&quot;)" time="0.0006342" result="Pass">
+        <output>[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: NotFound, _: &quot;The requested resource was not found&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: NotFound, _: &quot;The requested resource was not found&quot;)" time="0.0007860" result="Pass">
+        <output>[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: GatewayTimeout, _: &quot;The AI service is currently unavailable&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: GatewayTimeout, _: &quot;The AI service is currently unavailable&quot;)" time="14.0488761" result="Pass">
+        <output>[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:18:50Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: BadGateway, _: &quot;The AI service is currently unavailable&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: BadGateway, _: &quot;The AI service is currently unavailable&quot;)" time="14.0226954" result="Pass">
+        <output>[2025-09-15 21:19:04Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:04Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:04Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:19:04Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:04Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: InternalServerError, _: &quot;The AI service is currently unavailable&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: InternalServerError, _: &quot;The AI service is currently unavailable&quot;)" time="14.0254029" result="Pass">
+        <output>[2025-09-15 21:19:18Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:18Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:18Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:19:18Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:18Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: TooManyRequests, _: &quot;Rate limit exceeded&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithHttpError_ThrowsAppropriateException(statusCode: TooManyRequests, _: &quot;Rate limit exceeded&quot;)" time="0.0021197" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw HttpRequestException
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidEndpoint_ThrowsArgumentException" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidEndpoint_ThrowsArgumentException" time="0.0024122" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Initialization" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: &quot;   &quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: &quot;   &quot;)" time="0.0009059" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;&quot;, modelId: &quot;modelId&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;&quot;, modelId: &quot;modelId&quot;)" time="0.0006639" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;   &quot;, modelId: &quot;modelId&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;   &quot;, modelId: &quot;modelId&quot;)" time="0.0002755" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: &quot;&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: &quot;&quot;)" time="0.0002397" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: null)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: &quot;apiKey&quot;, modelId: null)" time="0.0002862" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: null, modelId: &quot;modelId&quot;)" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithInvalidParameters_ThrowsArgumentException(apiKey: null, modelId: &quot;modelId&quot;)" time="0.0002267" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithTooManyMessages_ThrowsArgumentException" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithTooManyMessages_ThrowsArgumentException" time="0.0012810" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithOperationCanceled_ThrowsTimeoutException" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithOperationCanceled_ThrowsTimeoutException" time="14.0230546" result="Pass">
+        <output>[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up to throw OperationCanceledException
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:32Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ErrorHandling" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithEmptyChatHistory_ThrowsArgumentException" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithEmptyChatHistory_ThrowsArgumentException" time="0.0020127" result="Pass">
+        <output>[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Validation" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.Constructor_WithValidParameters_InitializesSuccessfully" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="Constructor_WithValidParameters_InitializesSuccessfully" time="0.0010071" result="Pass">
+        <output>[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+
+</output>
+        <traits>
+          <trait name="Category" value="Initialization" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithTransientFailure_RetriesAndSucceeds" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithTransientFailure_RetriesAndSucceeds" time="6.0215287" result="Pass">
+        <output>[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:46Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="Resilience" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithChatHistory_ReturnsExpectedResponse" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithChatHistory_ReturnsExpectedResponse" time="0.0026842" result="Pass">
+        <output>[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up with response: The capital of France is Paris.
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ChatCompletion" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+      <test name="BotManagementSystem.Tests.Services.SemanticKernelServiceTests.GetChatCompletionAsync_WithValidPrompt_ReturnsExpectedResponse" type="BotManagementSystem.Tests.Services.SemanticKernelServiceTests" method="GetChatCompletionAsync_WithValidPrompt_ReturnsExpectedResponse" time="0.0008827" result="Pass">
+        <output>[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Initializing SemanticKernelServiceTests
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test initialization completed
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Test chat completion set up with response: Test response
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: Creating SemanticKernelService instance
+[2025-09-15 21:19:52Z] info: BotManagementSystem.Tests.Services.SemanticKernelServiceTests[0]
+      STEP: SemanticKernelService instance created successfully
+
+</output>
+        <traits>
+          <trait name="Category" value="ChatCompletion" />
+          <trait name="Category" value="Unit" />
+          <trait name="Service" value="SemanticKernel" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.SimpleTest" time="0.113">
+      <test name="BotManagementSystem.Tests.SimpleTest.SimpleTest_Passes" type="BotManagementSystem.Tests.SimpleTest" method="SimpleTest_Passes" time="0.0331343" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.SimpleTest.CanCreateSemanticKernelService" type="BotManagementSystem.Tests.SimpleTest" method="CanCreateSemanticKernelService" time="0.0800471" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" time="0.032">
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenValid_DoesNotThrow" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenValid_DoesNotThrow" time="0.0227987" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenExceedsMaxMessageCount_ThrowsArgumentException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenExceedsMaxMessageCount_ThrowsArgumentException" time="0.0074346" result="Pass">
+        <output>Chat history exceeds maximum allowed length of 10 messages. (Parameter 'chatHistory')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;Don't share your API key&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;Don't share your API key&quot;)" time="0.0002261" result="Pass">
+        <output>Banned phrase detected: Prompt contains prohibited content: api key (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;My SSN is 123-45-6789&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;My SSN is 123-45-6789&quot;)" time="0.0001845" result="Pass">
+        <output>Banned phrase detected: Prompt contains prohibited content: ssn (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;My password is 1234&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;My password is 1234&quot;)" time="0.0000194" result="Pass">
+        <output>Banned phrase detected: Prompt contains prohibited content: password (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;This contains hack attempt&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;This contains hack attempt&quot;)" time="0.0000096" result="Pass">
+        <output>Banned phrase detected: Prompt contains prohibited content: hack (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;Credit card number 1234-5678-9012-3456&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenContainsBannedPhrase_ThrowsArgumentException(prompt: &quot;Credit card number 1234-5678-9012-3456&quot;)" time="0.0000081" result="Pass">
+        <output>Banned phrase detected: Prompt contains prohibited content: credit card (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenValid_DoesNotThrow" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenValid_DoesNotThrow" time="0.0002667" result="Pass">
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenNull_ThrowsArgumentNullException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenNull_ThrowsArgumentNullException" time="0.0001774" result="Pass">
+        <output>Value cannot be null. (Parameter 'chatHistory')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: &quot;&quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: &quot;&quot;)" time="0.0001030" result="Pass">
+        <output>Prompt cannot be null or whitespace. (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: null)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: null)" time="0.0000897" result="Pass">
+        <output>Prompt cannot be null or whitespace. (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: &quot;   &quot;)" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenEmptyOrWhitespace_ThrowsArgumentException(prompt: &quot;   &quot;)" time="0.0000102" result="Pass">
+        <output>Prompt cannot be null or whitespace. (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenContainsEmptyMessage_ThrowsArgumentException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenContainsEmptyMessage_ThrowsArgumentException" time="0.0001428" result="Pass">
+        <output>Chat history contains empty or whitespace messages. (Parameter 'chatHistory')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidatePrompt_WhenExceedsMaxLength_ThrowsArgumentException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidatePrompt_WhenExceedsMaxLength_ThrowsArgumentException" time="0.0001242" result="Pass">
+        <output>Prompt length exceeds maximum allowed length of 4000 characters. (Parameter 'prompt')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenContainsBannedPhrase_ThrowsArgumentException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenContainsBannedPhrase_ThrowsArgumentException" time="0.0001090" result="Pass">
+        <output>Banned phrase detected in chat history: Chat history contains prohibited content: hack (Parameter 'chatHistory')
+
+</output>
+        <traits />
+      </test>
+      <test name="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests.ValidateChatHistory_WhenEmpty_ThrowsArgumentException" type="BotManagementSystem.Tests.Validation.SemanticKernelValidationTests" method="ValidateChatHistory_WhenEmpty_ThrowsArgumentException" time="0.0000947" result="Pass">
+        <output>Chat history cannot be empty. (Parameter 'chatHistory')
+
+</output>
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

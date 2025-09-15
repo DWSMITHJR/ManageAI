@@ -23,7 +23,7 @@ public interface ISemanticKernelService
 public class SemanticKernelService : ISemanticKernelService
 {
     private readonly Kernel _kernel;
-    private bool _disposed = false;
+    
     private readonly ILogger<SemanticKernelService> _logger;
     private readonly IChatCompletionService _chatCompletionService;
     private readonly AsyncRetryPolicy _retryPolicy;
