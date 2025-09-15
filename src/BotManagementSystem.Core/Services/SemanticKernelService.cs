@@ -18,8 +18,21 @@ namespace BotManagementSystem.Core.Services;
 
 public interface ISemanticKernelService
 {
-    Task<string> GetChatCompletionAsync(string prompt);
-    Task<string> GetChatCompletionAsync(ChatHistory chatHistory);
+    /// <summary>
+    /// Gets a chat completion from the AI service for a given prompt.
+    /// </summary>
+    /// <param name="prompt">The prompt to send to the AI service.</param>
+    /// <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+    /// <returns>The chat completion response.</returns>
+    Task<string> GetChatCompletionAsync(string prompt, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gets a chat completion from the AI service for a given chat history.
+    /// </summary>
+    /// <param name="chatHistory">The chat history to send to the AI service.</param>
+    /// <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+    /// <returns>The chat completion response.</returns>
+    Task<string> GetChatCompletionAsync(ChatHistory chatHistory, CancellationToken cancellationToken = default);
 }
 
 public class SemanticKernelService : ISemanticKernelService
@@ -80,89 +93,33 @@ public class SemanticKernelService : ISemanticKernelService
         }
     }
 
-    public async Task<string> GetChatCompletionAsync(string prompt)
+    public async Task<string> GetChatCompletionAsync(string prompt, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            // Input validation
-            SemanticKernelValidation.ValidatePrompt(prompt);
-
-            _logger.LogDebug("Sending prompt to AI service. Length: {Length} characters", prompt.Length);
-            
-            return await _retryPolicy.ExecuteAsync(async () => 
-            {
-                try
-                {
-                    var result = await _chatCompletionService.GetChatMessageContentsAsync(
-                        prompt,
-                        _promptExecutionSettings,
-                        _kernel);
-
-                    var response = result?.FirstOrDefault()?.Content ?? string.Empty;
-                    _logger.LogDebug("Received AI response. Length: {Length} characters", response.Length);
-                    return response;
-                }
-                catch (HttpRequestException httpEx) when (httpEx.StatusCode == System.Net.HttpStatusCode.Unauthorized || httpEx.StatusCode == System.Net.HttpStatusCode.Forbidden)
-                {
-                    _logger.LogError("Authentication failed. Please check your API key and permissions.");
-                    throw new UnauthorizedAccessException("Authentication failed. Please check your API key and permissions.", httpEx);
-                }
-                catch (HttpRequestException httpEx) when (httpEx.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
-                {
-                    _logger.LogWarning("Rate limit exceeded. Please wait before making more requests.");
-                    throw new InvalidOperationException("Rate limit exceeded. Please wait before making more requests.", httpEx);
-                }
-                catch (HttpRequestException httpEx) when (httpEx.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    _logger.LogError("The requested resource was not found. Please check the model ID and endpoint.");
-                    throw new KeyNotFoundException("The requested AI model was not found. Please check your configuration.", httpEx);
-                }
-                catch (HttpRequestException httpEx) when (httpEx.StatusCode >= System.Net.HttpStatusCode.InternalServerError)
-                {
-                    _logger.LogWarning("The AI service is currently unavailable. Please try again later.");
-                    throw new InvalidOperationException("The AI service is currently unavailable. Please try again later.", httpEx);
-                }
-            });
-        }
-        catch (ArgumentException ex)
-        {
-            _logger.LogWarning("Invalid input: {Message}", ex.Message);
-            throw;
-        }
-        catch (OperationCanceledException ex)
-        {
-            _logger.LogWarning("The operation was canceled: {Message}", ex.Message);
-            throw new TimeoutException("The request timed out. Please check your connection and try again.", ex);
-        }
-        catch (Exception ex)
-        {
-            if (ex is UnauthorizedAccessException || ex is KeyNotFoundException || ex is InvalidOperationException)
-            {
-                throw;
-            }
-            _logger.LogError(ex, "Error getting chat completion for prompt. Length: {Length} characters", prompt?.Length ?? 0);
-            throw new InvalidOperationException("An error occurred while processing your request. Please try again later.", ex);
-        }
+        SemanticKernelValidation.ValidatePrompt(prompt);
+        return await ExecuteChatCompletionAsync(
+            () => _chatCompletionService.GetChatMessageContentsAsync(prompt, _promptExecutionSettings, _kernel, cancellationToken),
+            $"prompt with length {prompt.Length}", cancellationToken);
     }
 
-    public async Task<string> GetChatCompletionAsync(ChatHistory chatHistory)
+    public async Task<string> GetChatCompletionAsync(ChatHistory chatHistory, CancellationToken cancellationToken = default)
+    {
+        SemanticKernelValidation.ValidateChatHistory(chatHistory);
+        return await ExecuteChatCompletionAsync(
+            () => _chatCompletionService.GetChatMessageContentsAsync(chatHistory, _promptExecutionSettings, _kernel, cancellationToken),
+            $"chat history with {chatHistory.Count} messages", cancellationToken);
+    }
+
+    private async Task<string> ExecuteChatCompletionAsync(Func<Task<IReadOnlyList<ChatMessageContent>>> chatCompletionAction, string requestName, CancellationToken cancellationToken)
     {
         try
         {
-            // Input validation
-            SemanticKernelValidation.ValidateChatHistory(chatHistory);
+            _logger.LogDebug("Sending {RequestName} to AI service.", requestName);
 
-            _logger.LogDebug("Sending chat history to AI service. Message count: {Count}", chatHistory.Count);
-            
-            return await _retryPolicy.ExecuteAsync(async () => 
+            return await _retryPolicy.ExecuteAsync(async (ct) =>
             {
                 try
                 {
-                    var result = await _chatCompletionService.GetChatMessageContentsAsync(
-                        chatHistory,
-                        _promptExecutionSettings,
-                        _kernel);
-
+                    var result = await chatCompletionAction();
                     var response = result?.FirstOrDefault()?.Content ?? string.Empty;
                     _logger.LogDebug("Received AI response. Length: {Length} characters", response.Length);
                     return response;
@@ -187,7 +144,7 @@ public class SemanticKernelService : ISemanticKernelService
                     _logger.LogWarning("The AI service is currently unavailable. Please try again later.");
                     throw new InvalidOperationException("The AI service is currently unavailable. Please try again later.", httpEx);
                 }
-            });
+            }, cancellationToken);
         }
         catch (ArgumentException ex)
         {
@@ -205,7 +162,7 @@ public class SemanticKernelService : ISemanticKernelService
             {
                 throw;
             }
-            _logger.LogError(ex, "Error getting chat completion for chat history. Message count: {Count}", chatHistory?.Count ?? 0);
+            _logger.LogError(ex, "Error getting chat completion for {RequestName}.", requestName);
             throw new InvalidOperationException("An error occurred while processing your request. Please try again later.", ex);
         }
     }

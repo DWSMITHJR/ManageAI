@@ -9,20 +9,13 @@ namespace BotManagementSystem.Core.Extensions;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSemanticKernelServices(
-        this IServiceCollection services,
-        string apiKey,
-        string modelId = "gpt-35-turbo",
-        string? endpoint = null)
+        this IServiceCollection services)
     {
         services.AddSingleton<ISemanticKernelService>(sp =>
         {
+            var openAiSettings = sp.GetRequiredService<IOptions<OpenAiSettings>>();
             var logger = sp.GetRequiredService<ILogger<SemanticKernelService>>();
-            Uri? endpointUri = null;
-            if (!string.IsNullOrEmpty(endpoint))
-            {
-                endpointUri = new Uri(endpoint);
-            }
-            return new SemanticKernelService(apiKey, modelId, endpoint, logger);
+            return new SemanticKernelService(openAiSettings, logger);
         });
 
         return services;
