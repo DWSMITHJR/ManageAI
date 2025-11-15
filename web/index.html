@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Management System</title>
+    <title>Management Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link href="css/themer.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
@@ -14,18 +16,33 @@
         // Initialize tooltips
         document.addEventListener('DOMContentLoaded', function() {
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl)
-            });
+            if (tooltipTriggerList && tooltipTriggerList.length > 0) {
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl)
+                });
+            }
         });
     </script>
 </head>
 <body class="cyber-theme">
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-btn theme-btn-light" data-theme="light" title="Light Theme">
+            <i class="bi bi-sun"></i>
+        </button>
+        <button class="theme-btn theme-btn-dark" data-theme="dark" title="Dark Theme">
+            <i class="bi bi-moon"></i>
+        </button>
+        <button class="theme-btn theme-btn-ocean" data-theme="ocean" title="Ocean Theme">
+            <i class="bi bi-water"></i>
+        </button>
+    </div>
+    
     <div class="scanline"></div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="bi bi-robot me-2"></i>Bot Management System
+                <i class="bi bi-gear me-2"></i>Management Dashboard
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -38,79 +55,309 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-bots">
-                            <i class="bi bi-robot me-1"></i> Bots
+                        <a class="nav-link" href="#" id="nav-email">
+                            <i class="bi bi-envelope me-1"></i> Email
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-statistics">
-                            <i class="bi bi-graph-up me-1"></i> Statistics
+                        <a class="nav-link" href="#" id="nav-services">
+                            <i class="bi bi-cpu me-1"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-todos">
+                            <i class="bi bi-check-square me-1"></i> Tasks
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-secrets" data-bs-toggle="modal" data-bs-target="#secretsModal">
+                            <i class="bi bi-key me-1"></i> Secrets
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-tests">
+                            <i class="bi bi-play-circle me-1"></i> Tests
                         </a>
                     </li>
                 </ul>
-                <div class="d-flex
-                ">
-                    <button class="btn btn-outline-light me-2" id="add-bot-btn">
-                        <i class="bi bi-plus-circle me-1"></i> Add Bot
-                    </button>
-                </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i> User
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="auth-status">
+                                <i class="bi bi-shield-check me-1"></i> <span id="auth-text">Not Authenticated</span>
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logout-btn">
+                                <i class="bi bi-box-arrow-right me-1"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <main class="container py-4" id="main-content">
+    <main class="container-fluid py-4" id="main-content">
         <!-- Dashboard View -->
         <div id="dashboard-view">
             <div class="row mb-4">
                 <div class="col-12">
-                    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard</h2>
+                    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h2>
                 </div>
             </div>
-            
-            <div class="row mb-4">
-                <div class="col-md-4 mb-3">
+
+            <!-- Summary Cards -->
+            <div class="row mb-4" id="summary-cards">
+                <div class="col-md-3 mb-3">
                     <div class="card bg-primary text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Total Bots</h5>
-                            <h2 class="mb-0" id="total-bots">0</h2>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">Unread Emails</h5>
+                                    <h3 id="unread-count">-</h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-envelope-fill fs-1"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <div class="card bg-success text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Active Bots</h5>
-                            <h2 class="mb-0" id="active-bots">0</h2>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">Today's Events</h5>
+                                    <h3 id="events-count">-</h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-calendar-check-fill fs-1"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card bg-warning text-dark">
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-warning text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Inactive Bots</h5>
-                            <h2 class="mb-0" id="inactive-bots">0</h2>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">Pending Tasks</h5>
+                                    <h3 id="pending-count">-</h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-list-task fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5 class="card-title">Services</h5>
+                                    <h3 id="services-count">-</h3>
+                                </div>
+                                <div class="align-self-center">
+                                    <i class="bi bi-cpu-fill fs-1"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <!-- Quick Actions -->
+            <div class="row mb-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Recent Activity</h5>
+                            <h5 class="card-title mb-0">Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-primary w-100" id="refresh-dashboard-btn">
+                                        <i class="bi bi-arrow-clockwise me-1"></i> Refresh Dashboard
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-success w-100" id="run-tests-btn">
+                                        <i class="bi bi-play-fill me-1"></i> Run All Tests
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-info w-100" id="compose-email-btn">
+                                        <i class="bi bi-pencil-square me-1"></i> Compose Email
+                                    </button>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <button class="btn btn-warning w-100" id="add-task-btn">
+                                        <i class="bi bi-plus-circle me-1"></i> Add Task
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Recent Emails</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="recent-emails">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-envelope fs-1"></i>
+                                    <p>Loading emails...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Upcoming Events</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="upcoming-events">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-calendar fs-1"></i>
+                                    <p>Loading events...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email View -->
+        <div id="email-view" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2><i class="bi bi-envelope me-2"></i>Email Dashboard</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Email Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Emails</h5>
+                            <button class="btn btn-sm btn-outline-primary" id="refresh-emails-btn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="emails-container">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-envelope fs-1"></i>
+                                    <p>Loading emails...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Panel -->
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Calendar</h5>
+                            <button class="btn btn-sm btn-outline-primary" id="refresh-calendar-btn">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="calendar-container">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-calendar fs-1"></i>
+                                    <p>Loading calendar...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Compose Modal -->
+            <div class="modal fade" id="emailModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Compose Email</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="emailForm">
+                                <div class="mb-3">
+                                    <label for="email-to" class="form-label">To</label>
+                                    <input type="email" class="form-control" id="email-to" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="email-subject" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email-body" class="form-label">Message</label>
+                                    <textarea class="form-control" id="email-body" rows="5" required></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="send-email-btn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services View -->
+        <div id="services-view" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2><i class="bi bi-cpu me-2"></i>Services Management</h2>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Available Services</h5>
+                            <div>
+                                <button class="btn btn-sm btn-success me-2" id="test-all-services-btn">
+                                    <i class="bi bi-play-fill me-1"></i> Test All
+                                </button>
+                                <button class="btn btn-sm btn-info" id="check-credits-btn">
+                                    <i class="bi bi-credit-card me-1"></i> Check Credits
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-hover" id="recent-activity">
+                                <table class="table table-hover" id="services-table">
                                     <thead>
                                         <tr>
-                                            <th>Bot Name</th>
+                                            <th>Service</th>
                                             <th>Type</th>
                                             <th>Status</th>
-                                            <th>Performance</th>
-                                            <th>Time Running</th>
-                                            <th>Last Active</th>
+                                            <th>Last Test</th>
+                                            <th>Credits</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -123,81 +370,243 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Bots Management View -->
-        <div id="bots-view" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2><i class="bi bi-robot me-2"></i>Bot Management</h2>
-                <button class="btn btn-primary" id="add-bot-btn-2">
-                    <i class="bi bi-plus-circle me-1"></i> Add Bot
-                </button>
-            </div>
-            
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="bots-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Performance</th>
-                                    <th>Time Running</th>
-                                    <th>Last Active</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Will be populated by JavaScript -->
-                            </tbody>
-                        </table>
+            <!-- Test Results -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Test Results</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="test-results">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-clipboard-check fs-1"></i>
+                                    <p>No test results yet. Run tests to see results.</p>
+                                    <div class="mt-3">
+                                        <a href="../TestResults/2011d213-c5ab-42bd-9807-eec5933a7bc9/coverage.cobertura.xml" 
+                                           target="_blank" 
+                                           class="btn btn-sm btn-outline-info" 
+                                           id="view-latest-coverage-btn">
+                                            <i class="bi bi-file-earmark-code me-1"></i>View Latest Coverage Report
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Statistics View -->
-        <div id="statistics-view" style="display: none;">
+        <!-- Tasks View -->
+        <div id="todos-view" style="display: none;">
             <div class="row mb-4">
                 <div class="col-12">
-                    <h2><i class="bi bi-graph-up me-2"></i>Statistics</h2>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Bot Status Distribution</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="statusChart" height="300"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Bot Types</h5>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="typeChart" height="300"></canvas>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2><i class="bi bi-check-square me-2"></i>Task Management</h2>
+                        <button class="btn btn-primary" id="add-todo-btn">
+                            <i class="bi bi-plus-circle me-1"></i> Add Task
+                        </button>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Task Statistics -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 id="todo-total">0</h3>
+                            <p class="mb-0">Total Tasks</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 id="todo-completed">0</h3>
+                            <p class="mb-0">Completed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 id="todo-pending">0</h3>
+                            <p class="mb-0">Pending</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 id="todo-completion-rate">0%</h3>
+                            <p class="mb-0">Completion Rate</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task List -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Activity Log</h5>
+                            <h5 class="card-title mb-0">Tasks</h5>
                         </div>
                         <div class="card-body">
-                            <div class="timeline" id="activity-timeline">
-                                <!-- Will be populated by JavaScript -->
+                            <div id="todos-container">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-list-task fs-1"></i>
+                                    <p>Loading tasks...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Todo Modal -->
+            <div class="modal fade" id="todoModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Task</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="todoForm">
+                                <div class="mb-3">
+                                    <label for="todo-title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="todo-title" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="todo-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="todo-description" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="todo-due" class="form-label">Due Date</label>
+                                    <input type="datetime-local" class="form-control" id="todo-due">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="todo-priority" class="form-label">Priority</label>
+                                    <select class="form-select" id="todo-priority">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="save-todo-btn">Save Task</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tests View -->
+        <div id="tests-view" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2><i class="bi bi-play-circle me-2"></i>Test Runner</h2>
+                        <div>
+                            <button class="btn btn-success me-2" id="run-all-tests-btn">
+                                <i class="bi bi-play-fill me-1"></i> Run All Tests
+                            </button>
+                            <button class="btn btn-info" id="export-results-btn">
+                                <i class="bi bi-download me-1"></i> Export Results
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Configuration -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Test Configuration</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="test-anthropic" checked>
+                                        <label class="form-check-label" for="test-anthropic">
+                                            Anthropic Claude
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="test-openai" checked>
+                                        <label class="form-check-label" for="test-openai">
+                                            OpenAI GPT
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="test-google" checked>
+                                        <label class="form-check-label" for="test-google">
+                                            Google Gemini
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="test-huggingface">
+                                        <label class="form-check-label" for="test-huggingface">
+                                            Hugging Face
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Progress -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Test Progress</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="progress mb-3">
+                                <div class="progress-bar" id="test-progress" role="progressbar" style="width: 0%">0%</div>
+                            </div>
+                            <div id="test-status">Ready to run tests</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Results -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Test Results</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="test-results-container">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-clipboard-check fs-1"></i>
+                                    <p>No test results yet. Run tests to see results.</p>
+                                    <div class="mt-3">
+                                        <a href="../TestResults/2011d213-c5ab-42bd-9807-eec5933a7bc9/coverage.cobertura.xml" 
+                                           target="_blank" 
+                                           class="btn btn-sm btn-outline-info" 
+                                           id="view-latest-coverage-runner-btn">
+                                            <i class="bi bi-file-earmark-code me-1"></i>View Latest Coverage Report
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,62 +615,242 @@
         </div>
     </main>
 
-    <!-- Bot Modal -->
-    <div class="modal fade" id="botModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Enhanced Toast Container -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="toast-container" class="toast-container">
+            <!-- Toasts will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Toast Template (hidden) -->
+    <div id="toast-template" class="toast" role="alert" style="display: none;">
+        <div class="toast-header">
+            <i class="toast-icon me-2"></i>
+            <strong class="me-auto toast-title">Status</strong>
+            <small class="toast-timestamp">just now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body toast-message">
+            Operation completed
+        </div>
+    </div>
+
+    <!-- Secrets Modal -->
+    <div class="modal fade" id="secretsModal" tabindex="-1" aria-labelledby="secretsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="botModalTitle">Add New Bot</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="secretsModalLabel">
+                        <i class="bi bi-key me-2"></i>Secrets Configuration
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="botForm">
-                        <input type="hidden" id="botId">
-                        <div class="mb-3">
-                            <label for="botName" class="form-label">Bot Name</label>
-                            <input type="text" class="form-control" id="botName" required>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        Configure your API keys and secrets here. These are stored locally in your browser.
+                    </div>
+                    
+                    <form id="secrets-form">
+                        <!-- ProtonMail Configuration -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-envelope me-2"></i>ProtonMail Configuration
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="protonmail-client-id" class="form-label">Client ID</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                        <input type="password" class="form-control" id="protonmail-client-id" placeholder="Enter ProtonMail Client ID">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggle-protonmail-client-id">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="protonmail-client-secret" class="form-label">Client Secret</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                        <input type="password" class="form-control" id="protonmail-client-secret" placeholder="Enter ProtonMail Client Secret">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggle-protonmail-client-secret">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="botType" class="form-label">Bot Type</label>
-                            <select class="form-select" id="botType" required>
-                                <option value="Chat">Chat Bot</option>
-                                <option value="Automation">Automation Bot</option>
-                                <option value="Monitoring">Monitoring Bot</option>
-                                <option value="Analytics">Analytics Bot</option>
-                            </select>
+
+                        <!-- Semantic Kernel Configuration -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-cpu me-2"></i>Semantic Kernel Configuration
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="sk-default-provider" class="form-label">Default Provider</label>
+                                    <select class="form-select" id="sk-default-provider">
+                                        <option value="OpenAI">OpenAI</option>
+                                        <option value="Anthropic">Anthropic</option>
+                                        <option value="Google">Google</option>
+                                        <option value="HuggingFace">HuggingFace</option>
+                                        <option value="Ollama">Ollama</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- OpenAI -->
+                                <div class="card mb-2">
+                                    <div class="card-header py-2">
+                                        <small class="text-muted">OpenAI Configuration</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <label for="openai-api-key" class="form-label form-label-sm">API Key</label>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                                <input type="password" class="form-control" id="openai-api-key" placeholder="Enter OpenAI API Key">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-openai-api-key">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="openai-model-id" class="form-label form-label-sm">Model</label>
+                                            <select class="form-select form-select-sm" id="openai-model-id">
+                                                <option value="gpt-4">GPT-4</option>
+                                                <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Anthropic -->
+                                <div class="card mb-2">
+                                    <div class="card-header py-2">
+                                        <small class="text-muted">Anthropic Configuration</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <label for="anthropic-api-key" class="form-label form-label-sm">API Key</label>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                                <input type="password" class="form-control" id="anthropic-api-key" placeholder="Enter Anthropic API Key">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-anthropic-api-key">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="anthropic-model-id" class="form-label form-label-sm">Model</label>
+                                            <select class="form-select form-select-sm" id="anthropic-model-id">
+                                                <option value="claude-3-sonnet">Claude 3 Sonnet</option>
+                                                <option value="claude-3-opus">Claude 3 Opus</option>
+                                                <option value="claude-3-haiku">Claude 3 Haiku</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Google -->
+                                <div class="card mb-2">
+                                    <div class="card-header py-2">
+                                        <small class="text-muted">Google Configuration</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <label for="google-api-key" class="form-label form-label-sm">API Key</label>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                                <input type="password" class="form-control" id="google-api-key" placeholder="Enter Google API Key">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-google-api-key">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="google-model-id" class="form-label form-label-sm">Model</label>
+                                            <select class="form-select form-select-sm" id="google-model-id">
+                                                <option value="gemini-pro">Gemini Pro</option>
+                                                <option value="gemini-pro-vision">Gemini Pro Vision</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- HuggingFace -->
+                                <div class="card mb-2">
+                                    <div class="card-header py-2">
+                                        <small class="text-muted">HuggingFace Configuration</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <label for="huggingface-api-key" class="form-label form-label-sm">API Key</label>
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                                <input type="password" class="form-control" id="huggingface-api-key" placeholder="Enter HuggingFace API Key">
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-huggingface-api-key">
+                                                    <i class="bi bi-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="huggingface-model-id" class="form-label form-label-sm">Model</label>
+                                            <input type="text" class="form-control form-control-sm" id="huggingface-model-id" placeholder="Enter model name (e.g., microsoft/DialoGPT-large)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ollama -->
+                                <div class="card mb-2">
+                                    <div class="card-header py-2">
+                                        <small class="text-muted">Ollama Configuration</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-2">
+                                            <label for="ollama-endpoint" class="form-label form-label-sm">Endpoint</label>
+                                            <input type="text" class="form-control form-control-sm" id="ollama-endpoint" placeholder="http://localhost:11434" value="http://localhost:11434">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="ollama-model-id" class="form-label form-label-sm">Model</label>
+                                            <input type="text" class="form-control form-control-sm" id="ollama-model-id" placeholder="Enter model name (e.g., llama2)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="botDescription" class="form-label">Description</label>
-                            <textarea class="form-control" id="botDescription" rows="3"></textarea>
-                        </div>
-                        <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" type="checkbox" id="botIsActive" checked>
-                            <label class="form-check-label" for="botIsActive">Active</label>
+
+                        <!-- Database Configuration -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">
+                                    <i class="bi bi-database me-2"></i>Database Configuration
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="db-connection-string" class="form-label">Connection String</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+                                        <input type="password" class="form-control" id="db-connection-string" placeholder="Server=(localdb)\\mssqllocaldb;Database=BotManagement;Trusted_Connection=True;">
+                                        <button class="btn btn-outline-secondary" type="button" id="toggle-db-connection-string">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveBot">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Action</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="confirmMessage">
-                    <!-- Message will be inserted here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmAction">Confirm</button>
+                    <button type="button" class="btn btn-primary" id="save-secrets-btn">
+                        <i class="bi bi-save me-1"></i>Save Secrets
+                    </button>
                 </div>
             </div>
         </div>
@@ -269,6 +858,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/app.js?v=20251115-1500"></script>
 </body>
 </html>
