@@ -1,13 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Professional management dashboard for email, tasks, services, and system monitoring">
+    <meta name="keywords" content="management, dashboard, email, tasks, services, monitoring">
+    <meta name="author" content="ManagementAI">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
+    <meta name="theme-color" content="#0d6efd">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Management Dashboard">
+    <meta property="og:description" content="Professional management dashboard for email, tasks, services, and system monitoring">
+    <meta property="og:image" content="">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="Management Dashboard">
+    <meta property="twitter:description" content="Professional management dashboard for email, tasks, services, and system monitoring">
+    <meta property="twitter:image" content="">
+    
+    <!-- Preconnect critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="css/critical.css">
+    
+    <title>Management Dashboard - Professional System Control</title>
     <link rel="stylesheet" href="css/themer.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -24,206 +54,249 @@
         });
     </script>
 </head>
-<body class="cyber-theme">
+<body class="cyber-theme" data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="70">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+    
     <!-- Theme Switcher -->
-    <div class="theme-switcher">
-        <button class="theme-btn theme-btn-light" data-theme="light" title="Light Theme">
-            <i class="bi bi-sun"></i>
+    <div class="theme-switcher" role="toolbar" aria-label="Theme switching">
+        <button class="theme-btn theme-btn-light" data-theme="light" title="Switch to Light Theme" aria-label="Light Theme" aria-pressed="true">
+            <i class="bi bi-sun" aria-hidden="true"></i>
+            <span class="sr-only">Light Theme</span>
         </button>
-        <button class="theme-btn theme-btn-dark" data-theme="dark" title="Dark Theme">
-            <i class="bi bi-moon"></i>
+        <button class="theme-btn theme-btn-dark" data-theme="dark" title="Switch to Dark Theme" aria-label="Dark Theme" aria-pressed="false">
+            <i class="bi bi-moon" aria-hidden="true"></i>
+            <span class="sr-only">Dark Theme</span>
         </button>
-        <button class="theme-btn theme-btn-ocean" data-theme="ocean" title="Ocean Theme">
-            <i class="bi bi-water"></i>
+        <button class="theme-btn theme-btn-ocean" data-theme="ocean" title="Switch to Ocean Theme" aria-label="Ocean Theme" aria-pressed="false">
+            <i class="bi bi-water" aria-hidden="true"></i>
+            <span class="sr-only">Ocean Theme</span>
         </button>
     </div>
     
-    <div class="scanline"></div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-gear me-2"></i>Management Dashboard
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" id="nav-dashboard">
-                            <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-email">
-                            <i class="bi bi-envelope me-1"></i> Email
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-services">
-                            <i class="bi bi-cpu me-1"></i> Services
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-todos">
-                            <i class="bi bi-check-square me-1"></i> Tasks
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-secrets" data-bs-toggle="modal" data-bs-target="#secretsModal">
-                            <i class="bi bi-key me-1"></i> Secrets
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="nav-tests">
-                            <i class="bi bi-play-circle me-1"></i> Tests
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle me-1"></i> User
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" id="auth-status">
-                                <i class="bi bi-shield-check me-1"></i> <span id="auth-text">Not Authenticated</span>
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logout-btn">
-                                <i class="bi bi-box-arrow-right me-1"></i> Logout
-                            </a></li>
-                        </ul>
-                    </li>
-                </ul>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <span class="ms-2">Loading...</span>
+    </div>
+    
+    <!-- Scanline Effect -->
+    <div class="scanline" aria-hidden="true"></div>
+    <!-- Header Navigation -->
+    <header role="banner">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" role="navigation" aria-label="Main navigation">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#" aria-label="Management Dashboard Home">
+                    <i class="bi bi-gear me-2" aria-hidden="true"></i>
+                    <span>Management Dashboard</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto" role="menubar">
+                        <li class="nav-item" role="none">
+                            <a class="nav-link active" href="#" id="nav-dashboard" role="menuitem" aria-current="page">
+                                <i class="bi bi-speedometer2 me-1" aria-hidden="true"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#" id="nav-email" role="menuitem">
+                                <i class="bi bi-envelope me-1" aria-hidden="true"></i> Email
+                            </a>
+                        </li>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#" id="nav-services" role="menuitem">
+                                <i class="bi bi-cpu me-1" aria-hidden="true"></i> Services
+                            </a>
+                        </li>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#" id="nav-todos" role="menuitem">
+                                <i class="bi bi-check-square me-1" aria-hidden="true"></i> Tasks
+                            </a>
+                        </li>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#" id="nav-secrets" data-bs-toggle="modal" data-bs-target="#secretsModal" role="menuitem">
+                                <i class="bi bi-key me-1" aria-hidden="true"></i> Secrets
+                            </a>
+                        </li>
+                        <li class="nav-item" role="none">
+                            <a class="nav-link" href="#" id="nav-tests" role="menuitem">
+                                <i class="bi bi-play-circle me-1" aria-hidden="true"></i> Tests
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav" role="menubar">
+                        <li class="nav-item dropdown" role="none">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="menuitem" 
+                               data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                <i class="bi bi-person-circle me-1" aria-hidden="true"></i> User
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" role="menu">
+                                <li role="none">
+                                    <a class="dropdown-item" href="#" id="auth-status" role="menuitem">
+                                        <i class="bi bi-shield-check me-1" aria-hidden="true"></i> 
+                                        <span id="auth-text">Not Authenticated</span>
+                                    </a>
+                                </li>
+                                <li role="none"><hr class="dropdown-divider" aria-hidden="true"></li>
+                                <li role="none">
+                                    <a class="dropdown-item" href="#" id="logout-btn" role="menuitem">
+                                        <i class="bi bi-box-arrow-right me-1" aria-hidden="true"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main class="container-fluid py-4" id="main-content">
+    <!-- Main Content Area -->
+    <main class="container-fluid py-4" id="main-content" role="main" aria-label="Main content">
         <!-- Dashboard View -->
-        <div id="dashboard-view">
+        <section id="dashboard-view" aria-labelledby="dashboard-heading">
             <div class="row mb-4">
                 <div class="col-12">
-                    <h2><i class="bi bi-speedometer2 me-2"></i>Dashboard Overview</h2>
+                    <h1 id="dashboard-heading" class="h2">
+                        <i class="bi bi-speedometer2 me-2" aria-hidden="true"></i>
+                        Dashboard Overview
+                    </h1>
                 </div>
             </div>
 
             <!-- Summary Cards -->
-            <div class="row mb-4" id="summary-cards">
+            <section class="row mb-4" aria-labelledby="summary-heading">
+                <div class="col-12 mb-3">
+                    <h2 id="summary-heading" class="h5">System Overview</h2>
+                </div>
                 <div class="col-md-3 mb-3">
-                    <div class="card bg-primary text-white">
+                    <article class="card bg-primary text-white" role="article" aria-labelledby="unread-heading">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title">Unread Emails</h5>
-                                    <h3 id="unread-count">-</h3>
+                                    <h3 id="unread-heading" class="card-title h5">Unread Emails</h3>
+                                    <p class="h3 mb-0" id="unread-count" aria-live="polite">-</p>
                                 </div>
-                                <div class="align-self-center">
+                                <div class="align-self-center" aria-hidden="true">
                                     <i class="bi bi-envelope-fill fs-1"></i>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <div class="card bg-success text-white">
+                    <article class="card bg-success text-white" role="article" aria-labelledby="events-heading">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title">Today's Events</h5>
-                                    <h3 id="events-count">-</h3>
+                                    <h3 id="events-heading" class="card-title h5">Today's Events</h3>
+                                    <p class="h3 mb-0" id="events-count" aria-live="polite">-</p>
                                 </div>
-                                <div class="align-self-center">
+                                <div class="align-self-center" aria-hidden="true">
                                     <i class="bi bi-calendar-check-fill fs-1"></i>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <div class="card bg-warning text-white">
+                    <article class="card bg-warning text-white" role="article" aria-labelledby="pending-heading">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title">Pending Tasks</h5>
-                                    <h3 id="pending-count">-</h3>
+                                    <h3 id="pending-heading" class="card-title h5">Pending Tasks</h3>
+                                    <p class="h3 mb-0" id="pending-count" aria-live="polite">-</p>
                                 </div>
-                                <div class="align-self-center">
+                                <div class="align-self-center" aria-hidden="true">
                                     <i class="bi bi-list-task fs-1"></i>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="col-md-3 mb-3">
-                    <div class="card bg-info text-white">
+                    <article class="card bg-info text-white" role="article" aria-labelledby="services-heading">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <h5 class="card-title">Services</h5>
-                                    <h3 id="services-count">-</h3>
+                                    <h3 id="services-heading" class="card-title h5">Services</h3>
+                                    <p class="h3 mb-0" id="services-count" aria-live="polite">-</p>
                                 </div>
-                                <div class="align-self-center">
+                                <div class="align-self-center" aria-hidden="true">
                                     <i class="bi bi-cpu-fill fs-1"></i>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
-            </div>
+            </section>
 
             <!-- Quick Actions -->
-            <div class="row mb-4">
+            <section class="row mb-4" aria-labelledby="actions-heading">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Quick Actions</h5>
+                            <h2 id="actions-heading" class="h5 card-title mb-0">Quick Actions</h2>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <div class="row" role="group" aria-label="Quick action buttons">
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-primary w-100" id="refresh-dashboard-btn">
-                                        <i class="bi bi-arrow-clockwise me-1"></i> Refresh Dashboard
+                                    <button class="btn btn-primary w-100" id="refresh-dashboard-btn" 
+                                            aria-describedby="refresh-help">
+                                        <i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i> 
+                                        <span>Refresh Dashboard</span>
                                     </button>
+                                    <small id="refresh-help" class="form-text text-muted sr-only">Refresh all dashboard data</small>
                                 </div>
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-success w-100" id="run-tests-btn">
-                                        <i class="bi bi-play-fill me-1"></i> Run All Tests
+                                    <button class="btn btn-success w-100" id="run-tests-btn" 
+                                            aria-describedby="tests-help">
+                                        <i class="bi bi-play-fill me-1" aria-hidden="true"></i> 
+                                        <span>Run All Tests</span>
                                     </button>
+                                    <small id="tests-help" class="form-text text-muted sr-only">Execute all system tests</small>
                                 </div>
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-info w-100" id="compose-email-btn">
-                                        <i class="bi bi-pencil-square me-1"></i> Compose Email
+                                    <button class="btn btn-info w-100" id="compose-email-btn" 
+                                            aria-describedby="email-help">
+                                        <i class="bi bi-pencil-square me-1" aria-hidden="true"></i> 
+                                        <span>Compose Email</span>
                                     </button>
+                                    <small id="email-help" class="form-text text-muted sr-only">Create new email message</small>
                                 </div>
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-warning w-100" id="add-task-btn">
-                                        <i class="bi bi-plus-circle me-1"></i> Add Task
+                                    <button class="btn btn-warning w-100" id="add-task-btn" 
+                                            aria-describedby="task-help">
+                                        <i class="bi bi-plus-circle me-1" aria-hidden="true"></i> 
+                                        <span>Add Task</span>
                                     </button>
+                                    <small id="task-help" class="form-text text-muted sr-only">Create new task</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Recent Activity -->
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card">
+                    <section class="card" aria-labelledby="recent-emails-heading">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">Recent Emails</h5>
+                            <h2 id="recent-emails-heading" class="h5 card-title mb-0">Recent Emails</h2>
                         </div>
                         <div class="card-body">
-                            <div id="recent-emails">
+                            <div id="recent-emails" role="region" aria-live="polite" aria-busy="true">
                                 <div class="text-center text-muted">
-                                    <i class="bi bi-envelope fs-1"></i>
+                                    <i class="bi bi-envelope fs-1" aria-hidden="true"></i>
                                     <p>Loading emails...</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
@@ -244,7 +317,7 @@
         </div>
 
         <!-- Email View -->
-        <div id="email-view" style="display: none;">
+        <div id="email-view" class="hidden">
             <div class="row mb-4">
                 <div class="col-12">
                     <h2><i class="bi bi-envelope me-2"></i>Email Dashboard</h2>
@@ -327,7 +400,7 @@
         </div>
 
         <!-- Services View -->
-        <div id="services-view" style="display: none;">
+        <div id="services-view" class="hidden">
             <div class="row mb-4">
                 <div class="col-12">
                     <h2><i class="bi bi-cpu me-2"></i>Services Management</h2>
@@ -400,7 +473,7 @@
         </div>
 
         <!-- Tasks View -->
-        <div id="todos-view" style="display: none;">
+        <div id="todos-view" class="hidden">
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
@@ -509,7 +582,7 @@
         </div>
 
         <!-- Tests View -->
-        <div id="tests-view" style="display: none;">
+        <div id="tests-view" class="hidden">
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
@@ -578,7 +651,7 @@
                         </div>
                         <div class="card-body">
                             <div class="progress mb-3">
-                                <div class="progress-bar" id="test-progress" role="progressbar" style="width: 0%">0%</div>
+                                <div class="progress-bar" id="test-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
                             </div>
                             <div id="test-status">Ready to run tests</div>
                         </div>
@@ -611,19 +684,30 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-light text-center py-3 mt-5" role="contentinfo">
+        <div class="container">
+            <p class="mb-0 text-muted">
+                <small>&copy; 2025 ManagementAI. Professional Dashboard System.</small>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+
     <!-- Enhanced Toast Container -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div class="position-fixed bottom-0 end-0 p-3 toast-container">
         <div id="toast-container" class="toast-container">
             <!-- Toasts will be dynamically added here -->
         </div>
     </div>
 
     <!-- Toast Template (hidden) -->
-    <div id="toast-template" class="toast" role="alert" style="display: none;">
+    <div id="toast-template" class="toast hidden" role="alert">
         <div class="toast-header">
             <i class="toast-icon me-2"></i>
             <strong class="me-auto toast-title">Status</strong>
@@ -856,8 +940,45 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/app.js?v=20251115-1515"></script>
+    <!-- Scripts with integrity and defer for performance -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+            crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" 
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" 
+            crossorigin="anonymous" defer></script>
+    <script src="js/app.js?v=20251115-1520" defer></script>
+    
+    <!-- Performance monitoring -->
+    <script>
+        // Monitor page load performance
+        window.addEventListener('load', function() {
+            if ('performance' in window && 'measure' in window.performance) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    console.log('🚀 Page Load Performance:', {
+                        domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                        loadComplete: perfData.loadEventEnd - perfData.loadEventStart,
+                        totalTime: perfData.loadEventEnd - perfData.fetchStart
+                    });
+                }
+            }
+        });
+        
+        // Error boundary for unhandled errors
+        window.addEventListener('error', function(e) {
+            console.error('🚨 Unhandled Error:', {
+                message: e.message,
+                filename: e.filename,
+                lineno: e.lineno,
+                colno: e.colno
+            });
+        });
+        
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('🚨 Unhandled Promise Rejection:', e.reason);
+        });
+    </script>
 </body>
 </html>
