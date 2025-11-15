@@ -2070,11 +2070,18 @@ class SecretsManager {
             
             // Try to parse JSON, with better error handling
             try {
-                return JSON.parse(decryptedJson);
+                // Clean up common JSON formatting issues
+                let cleanedJson = decryptedJson
+                    .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+                    .replace(/,\s*}/g, '}') // Remove trailing commas
+                    .replace(/,\s*]/g, ']') // Remove trailing commas in arrays
+                    .replace(/([{,]\s*)([a-zA-Z_][a-zA-Z0-9_]*)\s*:/g, '$1"$2":'); // Quote unquoted property names
+                
+                return JSON.parse(cleanedJson);
             } catch (parseError) {
                 console.error('Failed to parse decrypted secrets as JSON:', parseError);
                 console.error('Decrypted data:', decryptedJson);
-                
+
                 // If parsing fails, remove corrupted data from localStorage
                 localStorage.removeItem(this.storageKey);
                 return {};
